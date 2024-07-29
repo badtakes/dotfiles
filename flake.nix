@@ -2,14 +2,24 @@
   description = "Personal NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    systems.url = "github:nix-systems/default-linux";
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small"; # moves faster, has less packages
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     flake-utils.url = "github:numtide/flake-utils";
 
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixvim.url = "github:nix-community/nixvim/main";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
@@ -20,84 +30,36 @@
     apple-fonts.url = "github:ostmarco/apple-fonts.nix";
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    flake-utils,
-    home-manager,
-    nixvim,
-    stylix,
-    apple-fonts,
-    ...
-  }: let
-    systems = with flake-utils.lib.system; [
-      aarch64-darwin
-      x86_64-darwin
-      x86_64-linux
-    ];
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = import inputs.systems;
 
-    systemsFlakes = flake-utils.lib.eachSystem systems (system: let
-      inherit (lib.extra) mapModulesRec';
+      imports = [
+        ({inputs, ...}: {
+          perSystem = {
+            config,
+            system,
+            ...
+          }: {
+            legacyPackages = import inputs.nixpkgs {
+              inherit system;
 
-      overlays = [
-        (import overlays/electron.nix)
-        (import overlays/postman.nix)
+              config = {
+                allowUnfree = true;
+                allowUnsupportedSystem = true;
+              };
+
+              overlays = [inputs.self.overlays.default];
+            };
+
+            _module.args = {
+              pkgs = config.legacyPackages;
+            };
+          };
+        })
+
+        ./lib
+        ./hosts
       ];
-
-      lib = pkgs.lib.extend (self: super: {
-        extra = import ./lib {
-          inherit inputs;
-
-          pkgs = nixpkgs.legacyPackages.${system};
-          lib = self;
-        };
-      });
-
-      pkgs = import nixpkgs {
-        inherit system;
-
-        config.allowUnfree = true;
-        config.permittedInsecurePackages = ["electron-25.9.0"];
-
-        overlays =
-          overlays
-          ++ [
-            (final: prev: apple-fonts.packages.${system})
-          ];
-      };
-
-      mkHost = path: let
-        inherit (builtins) baseNameOf;
-        inherit (lib) mkDefault removeSuffix;
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {inherit pkgs lib inputs system;};
-          modules =
-            [
-              {
-                nixpkgs.pkgs = pkgs;
-                networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
-              }
-
-              home-manager.nixosModule
-              nixvim.nixosModules.nixvim
-              stylix.nixosModules.stylix
-
-              (import path)
-            ]
-            ++ mapModulesRec' ./modules import;
-        };
-    in {
-      nixosConfigurations = {
-        red = mkHost ./hosts/red;
-      };
-    });
-
-    system = "x86_64-linux";
-  in
-    systemsFlakes
-    // {
-      nixosConfigurations = systemsFlakes.nixosConfigurations.${system};
     };
 }
