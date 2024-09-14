@@ -18,7 +18,7 @@ in {
     user.packages = let
       zed = pkgs.buildFHSUserEnv {
         name = "zed";
-        targetPkgs = _: [cfg.package];
+        targetPkgs = pkgs: [pkgs.nodejs_20 cfg.package];
 
         runScript = "zed";
       };

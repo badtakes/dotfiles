@@ -11,7 +11,7 @@ in {
     programs.nixvim = {
       plugins.bufferline = {
         enable = true;
-        separatorStyle = "thick";
+        settings.options.separator_style = "thick";
       };
 
       keymaps = [

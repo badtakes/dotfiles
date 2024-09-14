@@ -6,7 +6,6 @@
   inherit (lib) mkIf;
   inherit (lib.extra) mkEnableOption;
 
-  fish = config.modules.programs.fish;
   cfg = config.modules.programs.kitty;
 in {
   options.modules.programs.kitty = {
@@ -23,7 +22,10 @@ in {
         enable_audio_bell = false;
       };
 
-      shellIntegration.enableFishIntegration = fish.enable;
+      shellIntegration = {
+        enableFishIntegration = config.modules.programs.fish.enable;
+        enableZshIntegration = config.modules.programs.zsh.enable;
+      };
     };
   };
 }

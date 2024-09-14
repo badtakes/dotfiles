@@ -17,39 +17,44 @@ in {
     services = {
       loki = {
         enable = true;
-        configFile = pkgs.writeText "loki-config.yaml" ''
-          auth_enabled: false
+        configuration = {
+          auth_enabled = false;
+          server.http_listen_port = 3100;
 
-          server:
-            http_listen_port: 3100
+          common = {
+            ring = {
+              instance_addr = "127.0.0.1";
+              kvstore = {
+                store = "inmemory";
+              };
+            };
+            replication_factor = 1;
+            path_prefix = "/tmp/loki";
+          };
 
-          common:
-            path_prefix: /tmp/loki
-            storage:
-              filesystem:
-                chunks_directory: /tmp/loki/chunks
-                rules_directory: /tmp/loki/rules
-            replication_factor: 1
-            ring:
-              kvstore:
-                store: inmemory
+          schema_config = {
+            configs = [
+              {
+                from = "2023-01-05";
+                index = {
+                  prefix = "index_";
+                  period = "24h";
+                };
+                object_store = "filesystem";
+                schema = "v13";
+                store = "tsdb";
+              }
+            ];
+          };
 
-          schema_config:
-            configs:
-              - from: 2020-10-24
-                store: tsdb
-                object_store: filesystem
-                schema: v13
-                index:
-                  prefix: index_
-                  period: 24h
+          storage_config = {
+            filesystem = {
+              directory = "/tmp/loki/chunks";
+            };
+          };
 
-          ruler:
-            alertmanager_url: http://localhost:9093
-
-          limits_config:
-            allow_structured_metadata: true
-        '';
+          limits_config.allow_structured_metadata = true;
+        };
       };
 
       grafana = {

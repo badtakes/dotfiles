@@ -25,7 +25,6 @@
     jq
     libnotify
     mpv
-    openssl
     p7zip
     ripgrep
     tldr
@@ -45,6 +44,8 @@
       package = pkgs.mariadb;
     };
 
+    # netbird.enable = true;
+
     redis.servers."redis" = {
       enable = true;
       port = 6379;
@@ -58,18 +59,18 @@
 
   modules = {
     programs = {
-      fish.enable = true;
       git.enable = true;
       kitty.enable = true;
 
       nixvim = {
-        enable = true;
+        enable = false;
 
         viAlias = true;
         vimAlias = true;
       };
 
       zed.enable = true;
+      zsh.enable = true;
     };
 
     services = {
@@ -78,7 +79,7 @@
         compose = true;
       };
 
-      lgtm.enable = true;
+      lgtm.enable = false;
 
       stylix = {
         enable = true;
@@ -87,7 +88,6 @@
     };
   };
 
-  # User Account
   user = {
     name = "marco";
     description = "Marco Antônio";
@@ -95,7 +95,6 @@
     groups = ["adbusers" "docker" "networking" "video" "wheel" "kvm" "dialout"];
 
     shellAliases = {
-      ls = "exa";
       cat = "bat";
     };
 
@@ -105,7 +104,6 @@
         kubectl
       ]);
     in [
-      (discord.override {withOpenASAR = true;})
       alejandra
       anydesk
       d2
@@ -115,9 +113,8 @@
       gh
       jetbrains.datagrip
       jetbrains.rider
-      minikube
+      netbird-ui
       nil
-      webcord
       nixd
       obsidian
       onlyoffice-bin
@@ -128,7 +125,6 @@
       stremio
       tor-browser-bundle-bin
       ventoy-full
-      zoom-us
       zx
     ];
 
