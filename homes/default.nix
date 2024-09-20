@@ -18,7 +18,7 @@
 
     backupFileExtension = "hm.old";
 
-    users = lib.genAttrs config.modules.system.users (name: ./${name} + /home.nix);
+    users = lib.genAttrs ["marco"] (name: ./${name} + /home.nix);
 
     sharedModules = [
       {

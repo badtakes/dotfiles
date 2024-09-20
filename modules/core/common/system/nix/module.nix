@@ -1,16 +1,16 @@
-{
-  self,
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
+    ./overlays
+
+    ./documentation.nix
     ./nixpkgs.nix
     ./system.nix
   ];
 
   nix = {
+    package = pkgs.lix;
+
+    # Run the Nix daemon on lowest possible priority
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
     daemonIOSchedPriority = 7;
@@ -32,6 +32,7 @@
       max-free = "${toString (10 * 1024 * 1024 * 1024)}";
 
       auto-optimise-store = true;
+      experimental-features = "nix-command flakes";
 
       allowed-users = ["root" "@wheel"];
       trusted-users = ["root" "@wheel"];

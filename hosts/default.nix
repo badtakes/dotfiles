@@ -56,7 +56,7 @@ in {
       homesPath = ../homes;
     in {
       shared = path + /shared;
-      home = [inputs.nixos-hardware.nixosModules homesPath];
+      home = [inputs.home-manager.nixosModules.home-manager homesPath];
     };
 
     roles = let
@@ -70,9 +70,10 @@ in {
     options = modulesPath + /options;
   in {
     shrine = mkNixosSystem' "shrine" {
-      modules = [core.common core.profiles options];
-      roles = [roles.graphical roles.workstation];
-      extra = [extra.shared extra.home];
+      modules = [core.common core.profiles];
+      # modules = [core.common core.profiles options];
+      roles = [roles.graphical roles.laptop roles.workstation];
+      extra = [extra.home];
     };
   };
 }

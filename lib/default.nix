@@ -18,10 +18,14 @@
         builders = import ./builders.nix;
         modules = import ./modules.nix;
         options = import ./options.nix;
+        systemd = import ./systemd.nix;
+        themes = import ./themes.nix;
       };
 
       inherit (self.extensions.builders) mkNixosSystem;
       inherit (self.extensions.modules) mkModuleTree;
+      inherit (self.extensions.systemd) hardenService mkGraphicalService mkHyprlandService;
+      inherit (self.extensions.themes) serializeTheme compileSCSS;
     };
   in
     (lib.makeExtensible fn).extend extensions;
