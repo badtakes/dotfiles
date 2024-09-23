@@ -6,17 +6,14 @@
   inherit (lib) mkDefault mkForce;
 in {
   config.boot = {
-    # kernel console loglevel
     consoleLogLevel = 3;
 
-    # # always use the latest kernel instead of the old-ass lts one
-    # kernelPackages = mkOverride 500 sys.boot.kernel;
+    # kernelPackages = mkOverride 500 pkgs.linuxPackages_latest;
 
-    # # additional packages supplying kernel modules
-    # extraModulePackages = mkDefault sys.boot.extraModulePackages;
+    extraModulePackages = mkDefault [];
 
     # # configuration to be appended to the generated modprobe.conf
-    # extraModprobeConfig = mkDefault sys.boot.extraModprobeConfig;
+    extraModprobeConfig = mkDefault "options hid_apple fnmode=1";
 
     # whether to enable support for Linux MD RAID arrays
     # I don't know why this defaults to true, how many people use RAID anyway?

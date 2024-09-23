@@ -8,22 +8,22 @@
     ];
 
     fn = self: let
-      import = path:
+      call = path:
         builtins.import path {
           inherit inputs;
           lib = self;
         };
     in {
       extensions = {
-        builders = import ./builders.nix;
-        modules = import ./modules.nix;
-        options = import ./options.nix;
-        systemd = import ./systemd.nix;
-        themes = import ./themes.nix;
+        builders = call ./builders.nix;
+        modules = call ./modules.nix;
+        options = call ./options.nix;
+        systemd = call ./systemd.nix;
+        themes = call ./themes.nix;
       };
 
       inherit (self.extensions.builders) mkNixosSystem;
-      inherit (self.extensions.modules) mkModuleTree;
+      inherit (self.extensions.modules) mkModuleTree mkModuleTree';
       inherit (self.extensions.systemd) hardenService mkGraphicalService mkHyprlandService;
       inherit (self.extensions.themes) serializeTheme compileSCSS;
     };

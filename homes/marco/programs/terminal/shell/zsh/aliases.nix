@@ -17,7 +17,7 @@ in {
     search = "nix search";
     shell = "nix-shell";
 
-    cat = "${getExe bat} --style-plain";
+    cat = "${getExe bat} --style=plain";
     grep = "${getExe ripgrep}";
 
     l = "ls -lF --time-style=long-iso --icons";

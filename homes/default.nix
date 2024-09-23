@@ -16,7 +16,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
 
-    backupFileExtension = "hm.old";
+    backupFileExtension = "hm.backup";
 
     users = lib.genAttrs ["marco"] (name: ./${name} + /home.nix);
 

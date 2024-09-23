@@ -67,7 +67,6 @@ in {
 
         # the following removes tildes from the path, and substitutes some folders with shorter names
         substitutions = {
-          "~/Dev" = "Dev";
           "~/Documents" = "Docs";
         };
       };

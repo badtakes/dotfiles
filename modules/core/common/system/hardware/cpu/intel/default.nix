@@ -1,5 +1,9 @@
-{pkgs, ...}: {
-  hardware.cpu.intel.updateMicrocode = true;
+{
+  config,
+  pkgs,
+  ...
+}: {
+  hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
 
   boot = {
     kernelModules = ["kvm-intel"];

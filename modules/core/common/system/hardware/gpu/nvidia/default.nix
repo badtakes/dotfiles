@@ -4,16 +4,15 @@
   lib,
   ...
 }: let
-  inherit (lib) mkDefault mkMerge versionOlder;
+  inherit (lib) mkMerge;
 
-  # use the latest possible nvidia package
-  nvStable = config.boot.kernelPackages.nvidiaPackages.stable.version;
-  nvBeta = config.boot.kernelPackages.nvidiaPackages.beta.version;
-
-  nvidiaPackage =
-    if (versionOlder nvBeta nvStable)
-    then config.boot.kernelPackages.nvidiaPackages.stable
-    else config.boot.kernelPackages.nvidiaPackages.beta;
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec "$@"
+  '';
 in {
   config = {
     # nvidia drivers are unfree software
@@ -29,7 +28,7 @@ in {
     # also the nouveau performance is godawful, I'd rather run linux on a piece of paper than use nouveau
     # no offense to nouveau devs, I'm sure they're doing their best and they have my respect for that
     # but their best does not constitute a usable driver for me
-    boot.blacklistedKernelModules = ["nouveau"];
+    # boot.blacklistedKernelModules = ["nouveau"];
 
     environment = {
       sessionVariables = mkMerge [
@@ -56,26 +55,25 @@ in {
         # libva
         libva
         libva-utils
+
+        nvidia-offload
       ];
     };
 
     hardware = {
       nvidia = {
-        package = mkDefault nvidiaPackage;
-        modesetting.enable = mkDefault true;
+        package = config.boot.kernelPackages.nvidiaPackages.production;
 
-        prime.offload = false;
-
-        powerManagement = {
-          enable = mkDefault true;
-          finegrained = mkDefault false;
-        };
+        modesetting.enable = true;
+        powerManagement.enable = true;
 
         # use open source drivers by default, hosts may override this option if their gpu is
         # not supported by the open source drivers
-        open = mkDefault true;
+        open = true;
         nvidiaSettings = false; # add nvidia-settings to pkgs, useless on nixos
-        nvidiaPersistenced = true;
+        # nvidiaPersistenced = true;
+        # forceFullCompositionPipeline = true;
+
         forceFullCompositionPipeline = true;
       };
 

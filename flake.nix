@@ -35,15 +35,18 @@
     # };
 
     spicetify = {
-      url = "github:gerg-l/spicetify-nix";
+      url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # nixvim.url = "github:nix-community/nixvim/main";
     # nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
-    # stylix.url = "github:danth/stylix";
-    # stylix.inputs.nixpkgs.follows = "nixpkgs";
+    base16.url = "github:SenchoPens/base16.nix";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Hyprland & Hyprland Contrib repos
     # to be able to use the binary cache, we should avoid
@@ -81,10 +84,6 @@
             system,
             ...
           }: {
-            # Configure nixpkgs locally and expose it as <flakeRef>.legacyPackages.
-            # This will then be consumed to override flake-parts' pkgs argument
-            # to make sure pkgs instances in flake-parts modules are all referring
-            # to the same configuration instance - this one.
             legacyPackages = import inputs.nixpkgs {
               inherit system;
 
@@ -97,11 +96,6 @@
             };
 
             _module.args = {
-              # Unify all instances of nixpkgs into a single `pkgs` set
-              # Wthat includes our own overlays within `perSystem`. This
-              # is not done by flake-parts, so we do it ourselves.
-              # See:
-              #  <https://github.com/hercules-ci/flake-parts/issues/106#issuecomment-1399041045>
               pkgs = config.legacyPackages;
             };
           };

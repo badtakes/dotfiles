@@ -16,7 +16,7 @@ in {
       {id = "egnjhciaieeiiohknchakcodbpgjnchh";} # tab wrangler
     ];
 
-    package = pkgs.ungoogled-chromium.override {
+    package = pkgs.chromium.override {
       # nss = pkgs.nss_latest;
       commandLineArgs =
         [

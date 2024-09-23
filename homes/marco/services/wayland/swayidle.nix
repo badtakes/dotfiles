@@ -15,7 +15,7 @@
   '';
 in {
   # TODO: can we make it so that it works with sway *or* hyprland based on which one is enabled?
-  config = {
+  config = lib.mkIf false {
     systemd.user.services.swayidle.Install.WantedBy = ["hyprland-session.target"];
 
     # screen idle

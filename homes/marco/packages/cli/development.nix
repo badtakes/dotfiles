@@ -4,6 +4,8 @@
       devenv
       gh
       zx
+      nil
+      alejandra
     ];
   };
 }

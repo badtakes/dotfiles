@@ -8,7 +8,7 @@
     jack.enable = true;
     alsa = {
       enable = true;
-      enable32Bit = true;
+      support32Bit = true;
     };
   };
 }

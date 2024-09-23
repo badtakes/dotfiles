@@ -1,15 +1,17 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: let
+  inherit (lib) mkIf;
   hyprlandPkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   hyprlandPortalPkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 in {
   # disables Nixpkgs Hyprland module to avoid conflicts
   disabledModules = ["programs/hyprland.nix"];
 
-  config = {
+  config = mkIf false {
     services.displayManager.sessionPackages = [hyprlandPkg];
 
     xdg.portal = {

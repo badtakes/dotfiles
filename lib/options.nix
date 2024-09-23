@@ -8,6 +8,13 @@ in rec {
       type = types.attrs;
     };
 
+  mkHexColorOption = description:
+    mkOption {
+      inherit description;
+      example = "#424242";
+      type = types.strMatching "#[0-9A-F]{6}";
+    };
+
   mkBoolOption = default: description:
     mkOption {
       inherit description default;
@@ -16,7 +23,7 @@ in rec {
 
   mkEnableOption = mkBoolOption false;
 
-  mkPackageOption = default: description:
+  mkPkgOption = default: description:
     mkOption {
       inherit default description;
       type =
@@ -25,24 +32,17 @@ in rec {
         else types.package;
     };
 
-  mkPackagesOption = description:
+  mkPkgsOption = description:
     mkOption {
       inherit description;
       default = [];
       type = types.listOf types.package;
     };
 
-  mkStringOption = description:
+  mkStrOption = description:
     mkOption {
       inherit description;
       type = types.str;
-    };
-
-  mkStringsOption = description:
-    mkOption {
-      inherit description;
-      default = [];
-      type = types.listOf types.str;
     };
 
   mkPathOption = description:

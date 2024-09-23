@@ -2,9 +2,7 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) mkForce;
-in {
+}: {
   config = {
     programs.vscode = {
       package = pkgs.vscode-fhs;
@@ -13,8 +11,8 @@ in {
       enableUpdateCheck = true;
       enableExtensionUpdateCheck = true;
 
-      extensions = mkForce [];
-      userSettings = mkForce {};
+      extensions = lib.mkForce [];
+      userSettings = lib.mkForce {};
     };
   };
 }

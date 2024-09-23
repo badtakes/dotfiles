@@ -2,9 +2,7 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (lib) mkDefault mkForce;
-in {
+}: {
   imports = [
     ./blocker.nix
     ./network-manager.nix
@@ -18,10 +16,7 @@ in {
   ];
 
   networking = {
-    useDHCP = mkForce false;
-    useNetworkd = mkForce true;
-
-    usePredictableInterfaceNames = mkDefault true;
+    useDHCP = lib.mkDefault true;
 
     nameservers = [
       # Cloudflare
@@ -37,6 +32,4 @@ in {
       "2620:fe::9"
     ];
   };
-
-  hardware.wirelessRegulatoryDatabase = true;
 }

@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  browser = ["firefox.desktop"];
+  browser = ["chromium-browser.desktop"];
   mailer = ["thunderbird.desktop"];
   zathura = ["zathura.desktop"];
   fileManager = ["org.kde.dolphin.desktop"];

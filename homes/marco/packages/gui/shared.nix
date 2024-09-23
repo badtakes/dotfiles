@@ -1,11 +1,13 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    qbittorrent
     helvum
+    qbittorrent
+    reaper
 
     # Electron applications
     bitwarden-desktop
     signal-desktop
+    slack
 
     # Obsidian has a pandoc plugin that allows us to render and export
     # alternative image format, but as the name indicates the plugin

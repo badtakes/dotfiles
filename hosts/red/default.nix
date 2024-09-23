@@ -144,7 +144,7 @@
         google-chrome.enable = true;
 
         vscode = {
-          enable = true;
+          enable = false;
           package = pkgs.vscode.fhs;
 
           extensions = lib.mkForce [];

@@ -32,7 +32,7 @@
   };
 in {
   services.greetd = {
-    enable = true;
+    enable = false; 
     vt = 2;
     restart = false;
 

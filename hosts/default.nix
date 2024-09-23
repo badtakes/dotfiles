@@ -2,78 +2,66 @@
   inputs,
   withSystem,
   ...
-}: let
-  inherit (inputs.self) lib;
-  inherit (lib) mkModuleTree;
-  inherit (lib.lists) singleton concatLists flatten;
-
-  mkModulesFor = hostName: {
-    modules ? [],
-    roles ? [],
-    extra ? [],
-  }:
-    flatten (concatLists [
-      (singleton ./${hostName}/host.nix)
-
-      (map (path:
-        mkModuleTree {
-          inherit path;
-          suffix = "module.nix";
-        }) (concatLists [modules roles]))
-
-      extra
-    ]);
-
-  mkNixosSystem = {
-    hostName,
-    system ? "x86_64-linux",
-    modules ? {},
-    specialArgs ? {},
-    ...
-  } @ args:
-    lib.mkNixosSystem ({
-        inherit withSystem system;
-        inherit hostName specialArgs;
-
-        modules = mkModulesFor hostName modules;
-      }
-      // (builtins.removeAttrs args ["hostName" "system" "modules" "specialArgs"]));
-
-  mkNixosSystem' = hostName: modules: mkNixosSystem {inherit hostName modules;};
-in {
+}: {
   flake.nixosConfigurations = let
+    inherit (inputs.self) lib;
+    inherit (lib) mkModuleTree' mkNixosSystem;
+    inherit (lib.lists) singleton concatLists flatten;
+
+    nixosHardware = inputs.nixos-hardware.nixosModules;
+    homeManager = inputs.home-manager.nixosModules.home-manager;
+    # stylix = inputs.stylix.nixosModules.stylix;
+
     modulesPath = ../modules;
 
-    core = let
-      path = modulesPath + /core;
-    in {
-      common = path + /common;
-      profiles = path + /profiles;
-    };
-
-    extra = let
-      path = modulesPath + /extra;
-      homesPath = ../homes;
-    in {
-      shared = path + /shared;
-      home = [inputs.home-manager.nixosModules.home-manager homesPath];
-    };
-
-    roles = let
-      path = modulesPath + /core;
-    in {
-      graphical = path + /roles/graphical;
-      workstation = path + /roles/workstation;
-      laptop = path + /roles/laptop;
-    };
-
+    coreModules = modulesPath + /core;
+    # extraModules = modulesPath + /extra;
     options = modulesPath + /options;
+
+    common = coreModules + /common;
+    profiles = coreModules + /profiles;
+
+    # iso = coreModules + /roles/iso;
+    # headless = coreModules + /roles/headless;
+    graphical = coreModules + /roles/graphical;
+    workstation = coreModules + /roles/workstation;
+    # server = coreModules + /roles/server;
+    laptop = coreModules + /roles/laptop;
+
+    # shared = extraModules + /shared;
+
+    homesPath = ../homes;
+    homes = [homeManager homesPath];
+
+    mkModulesFor = hostName: {
+      modules ? [common profiles options],
+      roles ? [],
+      extra ? [],
+    }:
+      flatten (concatLists [
+        (singleton ./${hostName}/host.nix)
+        (map (path: mkModuleTree' {inherit path;}) (concatLists [modules roles]))
+        extra
+      ]);
+
+    mkNixosSystem' = hostName: system: options:
+      mkNixosSystem {
+        inherit withSystem hostName system;
+        modules = mkModulesFor hostName options;
+      };
   in {
-    shrine = mkNixosSystem' "shrine" {
-      modules = [core.common core.profiles];
-      # modules = [core.common core.profiles options];
-      roles = [roles.graphical roles.laptop roles.workstation];
-      extra = [extra.home];
+    shrine = mkNixosSystem' "shrine" "x86_64-linux" {
+      roles = [graphical laptop workstation];
+      extra = let
+        hardware = with nixosHardware; [
+          common-pc-laptop
+          common-pc-laptop-ssd
+
+          common-cpu-intel
+          common-gpu-nvidia-sync
+        ];
+      in
+        [homes] ++ hardware;
     };
   };
 }

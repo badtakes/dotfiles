@@ -31,15 +31,15 @@
       };
 
       dirHashes = {
-        docs = "$HOME/Documents";
         dl = "$HOME/Downloads";
+        docs = "$HOME/Documents";
+        dotfiles = "$HOME/.config/dotfiles";
         media = "$HOME/Media";
-        videos = "$HOME/Media/Videos";
         music = "$HOME/Media/Music";
         pics = "$HOME/Media/Pictures";
+        projects = "$HOME/Projects";
         screenshots = "$HOME/Media/Pictures/Screenshots";
-        notes = "$HOME/Cloud/Notes";
-        dotfiles = "$HOME/.config/dotfiles";
+        videos = "$HOME/Media/Videos";
       };
 
       envExtra = ''

@@ -4,13 +4,22 @@
 
   mkModuleTree = {
     path,
-    suffix ? ".nix",
-    ignore ? [./default.nix],
-  }: let
-    files = filesystem.listFilesRecursive path;
-    paths = map toString (filter (path: !elem path ignore) files);
-  in
-    filter (strings.hasSuffix suffix) paths;
+    ignored ? [./default.nix],
+  }:
+    filter (strings.hasSuffix ".nix") (
+      map toString (
+        filter (path: !elem path ignored) (filesystem.listFilesRecursive path)
+      )
+    );
+
+  mkModuleTree' = {
+    path,
+    ignored ? [],
+  }: (filter (strings.hasSuffix "module.nix") (
+    map toString (
+      filter (path: !elem path ignored) (filesystem.listFilesRecursive path)
+    )
+  ));
 in {
-  inherit mkModuleTree;
+  inherit mkModuleTree mkModuleTree';
 }

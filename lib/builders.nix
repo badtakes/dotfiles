@@ -11,14 +11,10 @@
 
   modulesPath = "${nixpkgs}/nixos/modules";
 
-  mkSystem = lib.nixosSystem;
-
   mkNixosSystem = {
     withSystem,
     system,
     hostName,
-    modules ? [],
-    specialArgs ? {},
     ...
   } @ args:
     withSystem system ({
@@ -26,28 +22,25 @@
       self',
       ...
     }:
-      mkSystem ({
-          modules = concatLists [
-            (singleton {
-              networking.hostName = hostName;
-              nixpkgs = {
-                hostPlatform = mkDefault system;
-                flake.source = nixpkgs.outPath;
-              };
-            })
+      lib.nixosSystem {
+        specialArgs = recursiveUpdate {
+          inherit (self) keys;
+          inherit lib modulesPath;
+          inherit inputs self inputs' self';
+        } (args.specialArgs or {});
 
-            modules
-          ];
+        modules = concatLists [
+          (singleton {
+            networking.hostName = hostName;
+            nixpkgs = {
+              hostPlatform = mkDefault system;
+              flake.source = nixpkgs.outPath;
+            };
+          })
 
-          specialArgs =
-            recursiveUpdate {
-              inherit (self) keys;
-              inherit lib modulesPath;
-              inherit inputs self inputs' self';
-            }
-            specialArgs;
-        }
-        // (builtins.removeAttrs args ["withSystem" "system" "hostName" "modules" "specialArgs"])));
+          (args.modules or [])
+        ];
+      });
 in {
-  inherit mkSystem mkNixosSystem;
+  inherit mkNixosSystem;
 }

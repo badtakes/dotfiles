@@ -6,7 +6,7 @@
   inherit (builtins) concatStringsSep;
   inherit (lib.modules) mkIf mkMerge;
 
-  enable = true;
+  enable = false;
   kdeTheme = pkgs.catppuccin-kde.override {
     flavour = ["mocha"];
     accents = ["blue"];

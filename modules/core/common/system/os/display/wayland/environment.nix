@@ -1,7 +1,6 @@
 {...}: {
   # ${lib.optionalString (env.desktop == "Hyprland") "Hyprland"}
   environment.etc."greetd/environments".text = ''
-    Hyprland
     zsh
   '';
 

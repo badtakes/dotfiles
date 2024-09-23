@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{...}: {
+  imports = [];
   config = {
     fileSystems = {
       "/" = {
@@ -13,17 +14,20 @@
       };
     };
 
-    boot.initrd.luks.devices."luks-a0562e2f-ef43-4711-92a1-e38e05559f64".device = "/dev/disk/by-uuid/a0562e2f-ef43-4711-92a1-e38e05559f64";
+    boot.initrd.luks.devices = {
+      "luks-868ef724-769c-4080-bb76-ad44d86173da".device = "/dev/disk/by-uuid/868ef724-769c-4080-bb76-ad44d86173da";
+      "luks-a0562e2f-ef43-4711-92a1-e38e05559f64".device = "/dev/disk/by-uuid/a0562e2f-ef43-4711-92a1-e38e05559f64";
+    };
 
-    # Enable the GNOME Desktop Environment.
-    services.xserver.desktopManager.gnome.enable = false;
+    swapDevices = [
+      {device = "/dev/disk/by-uuid/507181c8-1cf5-48ef-b27c-8691c8e8624d";}
+    ];
 
-    users.users.marco = {
-      description = "Marco";
-      packages = with pkgs; [
-        spotify
-        vscode.fhs
-      ];
+    hardware.nvidia.prime = {
+      sync.enable = true;
+
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
     };
 
     # This value determines the NixOS release from which the default

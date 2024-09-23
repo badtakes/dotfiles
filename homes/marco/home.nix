@@ -1,6 +1,9 @@
-{
+{inputs, ...}: {
   imports = [
-    # ./packages
+    inputs.stylix.homeManagerModules.stylix
+    inputs.base16.homeManagerModule
+
+    ./packages
 
     ./programs
     ./services

@@ -2,9 +2,9 @@
   imports = [
     ./apps
     # ./gaming
-    ./launchers
-    ./misc
-    ./screenlock
+    # ./launchers
+    # ./misc
+    # ./screenlock
     ./wms
   ];
 }
