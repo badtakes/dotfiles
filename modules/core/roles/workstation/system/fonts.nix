@@ -71,6 +71,8 @@ in {
       twemoji-color-font
       openmoji-color
       openmoji-black
+
+      google-fonts
     ];
   };
 }

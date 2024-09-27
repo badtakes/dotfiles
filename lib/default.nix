@@ -15,15 +15,19 @@
         };
     in {
       extensions = {
+        attrs = call ./attrs.nix;
         builders = call ./builders.nix;
         modules = call ./modules.nix;
         options = call ./options.nix;
+        secrets = call ./secrets.nix;
         systemd = call ./systemd.nix;
         themes = call ./themes.nix;
       };
 
+      inherit (self.extensions.attrs) flattenAttrs';
       inherit (self.extensions.builders) mkNixosSystem;
       inherit (self.extensions.modules) mkModuleTree mkModuleTree';
+      inherit (self.extensions.secrets) mkAgenixSecret;
       inherit (self.extensions.systemd) hardenService mkGraphicalService mkHyprlandService;
       inherit (self.extensions.themes) serializeTheme compileSCSS;
     };

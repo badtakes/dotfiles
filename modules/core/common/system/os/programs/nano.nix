@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   programs.nano = {
-    # enabled by default anyway, we can keep it in case my neovim config breaks
     enable = true;
     nanorc = ''
       include ${pkgs.nanorc}/share/*.nanorc # extended syntax highlighting

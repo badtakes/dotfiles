@@ -1,9 +1,6 @@
 {
   security = {
     pam = {
-      # fix "too many files open" errors while writing a lot of data at once
-      # (e.g. when building a large package)
-      # if this, somehow, doesn't meet your requirements you may just bump the numbers up
       loginLimits = [
         {
           domain = "@wheel";
@@ -25,9 +22,7 @@
           enablePattern = "*";
         };
       in {
-        # Allow screen lockers such as Swaylock or gtklock) to also unlock the screen.
         swaylock.text = "auth include login";
-        gtklock.text = "auth include login";
 
         login = {
           inherit ttyAudit;

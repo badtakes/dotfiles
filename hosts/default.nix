@@ -8,9 +8,8 @@
     inherit (lib) mkModuleTree' mkNixosSystem;
     inherit (lib.lists) singleton concatLists flatten;
 
-    nixosHardware = inputs.nixos-hardware.nixosModules;
+    agenix = inputs.agenix.nixosModules.default;
     homeManager = inputs.home-manager.nixosModules.home-manager;
-    # stylix = inputs.stylix.nixosModules.stylix;
 
     modulesPath = ../modules;
 
@@ -28,10 +27,14 @@
     # server = coreModules + /roles/server;
     laptop = coreModules + /roles/laptop;
 
-    # shared = extraModules + /shared;
+    # sharedModules = extraModules + /shared;
 
     homesPath = ../homes;
     homes = [homeManager homesPath];
+    shared = [
+      # sharedModules
+      agenix
+    ];
 
     mkModulesFor = hostName: {
       modules ? [common profiles options],
@@ -50,18 +53,20 @@
         modules = mkModulesFor hostName options;
       };
   in {
-    shrine = mkNixosSystem' "shrine" "x86_64-linux" {
-      roles = [graphical laptop workstation];
-      extra = let
-        hardware = with nixosHardware; [
-          common-pc-laptop
-          common-pc-laptop-ssd
+    shrine = let
+      chaotic = inputs.chaotic.nixosModules.default;
+      hardware = with inputs.nixos-hardware.nixosModules; [
+        common-pc-laptop
+        common-pc-laptop-ssd
 
-          common-cpu-intel
-          common-gpu-nvidia-sync
-        ];
-      in
-        [homes] ++ hardware;
-    };
+        common-cpu-intel
+        common-gpu-intel-disable
+        common-gpu-nvidia-nonprime
+      ];
+    in
+      mkNixosSystem' "shrine" "x86_64-linux" {
+        roles = [graphical laptop workstation];
+        extra = [homes chaotic shared] ++ hardware;
+      };
   };
 }

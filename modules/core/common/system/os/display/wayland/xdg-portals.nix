@@ -1,30 +1,31 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib) mkIf;
 in {
-  config = mkIf false {
+  config = mkIf true {
+    environment.pathsToLink = ["/share/xdg-desktop-portal" "/share/applications"];
+
     xdg.portal = {
       enable = true;
+      xdgOpenUsePortal = true;
 
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
+      # extraPortals = [
+      #   pkgs.xdg-desktop-portal-gtk
+      # ];
 
-      config = {
-        common = let
-          portal = "hyprland";
-        in {
-          default = ["gtk"];
+      wlr.enable = true;
 
-          # for flameshot to work
-          # https://github.com/flameshot-org/flameshot/issues/3363#issuecomment-1753771427
-          "org.freedesktop.impl.portal.Screencast" = ["${portal}"];
-          "org.freedesktop.impl.portal.Screenshot" = ["${portal}"];
-        };
-      };
+      # config = {
+      #   common = let
+      #     portal = "hyprland";
+      #   in {
+      #     default = ["gtk"];
+
+      #     # for flameshot to work
+      #     # https://github.com/flameshot-org/flameshot/issues/3363#issuecomment-1753771427
+      #     "org.freedesktop.impl.portal.Screencast" = ["${portal}"];
+      #     "org.freedesktop.impl.portal.Screenshot" = ["${portal}"];
+      #   };
+      # };
 
       # xdg-desktop-wlr (this section) is no longer needed, xdg-desktop-portal-hyprland
       # will (and should) override this one

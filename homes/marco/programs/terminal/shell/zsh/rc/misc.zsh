@@ -33,6 +33,3 @@ autoload -Uz colors && colors
 ZSH_AUTOSUGGEST_USE_ASYNC="true"
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 ZSH_AUTOSUGGEST_HISTORY_IGNORE=$'*\n*'
-
-# Improve paste delay for nix store paths
-FAST_HIGHLIGHT[use_async]=1

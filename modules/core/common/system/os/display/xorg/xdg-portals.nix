@@ -1,15 +1,11 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   config = {
-    xdg.portal = lib.mkIf false {
+    xdg.portal = lib.mkIf true {
       enable = true;
 
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
+      # extraPortals = [
+      #   pkgs.xdg-desktop-portal-gtk
+      # ];
     };
   };
 }

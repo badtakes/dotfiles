@@ -64,15 +64,14 @@ in {
       ${fileContents ./rc/set.zsh}
 
       # binds, zsh modules and everything else
-      ${fileContents ./rc/binds.zsh}
       ${fileContents ./rc/modules.zsh}
       ${fileContents ./rc/fzf-tab.zsh}
       ${fileContents ./rc/misc.zsh}
-
-      # Set LS_COLORS by parsing dircolors output
-      LS_COLORS="$(${pkgs.coreutils}/bin/dircolors --sh)"
-      LS_COLORS="''${''${LS_COLORS#*\'}%\'*}"
-      export LS_COLORS
     '';
+
+    # Set LS_COLORS by parsing dircolors output
+    # LS_COLORS="$(${pkgs.coreutils}/bin/dircolors --sh)"
+    # LS_COLORS="''${''${LS_COLORS#*\'}%\'*}"
+    # export LS_COLORS
   };
 }

@@ -1,5 +1,9 @@
-{config, ...}: {
-  config = {
+{
+  config,
+  lib,
+  ...
+}: {
+  config = lib.mkIf false {
     services.dunst = {
       enable = true;
       iconTheme = {

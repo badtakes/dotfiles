@@ -9,6 +9,9 @@
     signal-desktop
     slack
 
+    davinci-resolve
+    stremio
+
     # Obsidian has a pandoc plugin that allows us to render and export
     # alternative image format, but as the name indicates the plugin
     # requires `pandoc` binary to be accessiblee. Join pandoc derivation

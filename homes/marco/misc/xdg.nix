@@ -5,7 +5,7 @@
 }: let
   browser = ["chromium-browser.desktop"];
   mailer = ["thunderbird.desktop"];
-  zathura = ["zathura.desktop"];
+
   fileManager = ["org.kde.dolphin.desktop"];
 
   associations = {
@@ -29,9 +29,9 @@
     "video/*" = ["mpv.desktop"];
     "image/*" = ["imv.desktop"];
     "application/json" = browser;
-    "application/pdf" = zathura;
+    "application/pdf" = browser;
 
-    "x-scheme-handler/tg" = ["telegramdesktop.desktop"];
+    # "x-scheme-handler/tg" = ["telegramdesktop.desktop"];
     "x-scheme-handler/spotify" = ["spotify.desktop"];
     "x-scheme-handler/discord" = ["WebCord.desktop"];
     "x-scheme-handler/mailto" = mailer;

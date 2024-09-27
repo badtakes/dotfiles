@@ -3,33 +3,15 @@
   lib,
   ...
 }: let
-  inherit (builtins) concatStringsSep;
-  inherit (lib.modules) mkIf mkMerge;
-
-  enable = false;
-  kdeTheme = pkgs.catppuccin-kde.override {
-    flavour = ["mocha"];
-    accents = ["blue"];
-    winDecStyles = ["modern"];
-  };
-  kvantumTheme = pkgs.catppuccin-kvantum.override {
-    accent = "Blue";
-    variant = "Mocha";
-  };
+  inherit (lib) mkMerge;
 in {
-  config = mkIf enable {
+  config = {
     qt = {
       enable = true;
-      platformTheme = {
-        # Sets QT_QPA_PLATFORMTHEME, takes "gtk", "gtk3", "adwaita", "kde" and a few others.
-        name = "gtk3";
-        package = []; # libraries associated with the platformtheme, we add those manually
-      };
-
+      platformTheme = "gnome";
       style = {
-        # Sets QT_STYLE_OVERRIDE, takes "gtk2, "adwaita" (and variants), "breeze", "kvantum" and a few others."
-        name = "kvantum";
-        package = []; # same as above
+        name = "adwaita-dark";
+        package = pkgs.adwaita-qt;
       };
     };
 
@@ -86,32 +68,7 @@ in {
 
         # Do remain backwards compatible with QT5 if possible.
         DISABLE_QT5_COMPAT = "0";
-
-        # Tell Calibre to use the dark theme, because the
-        # default light theme hurts my eyes.
-        CALIBRE_USE_DARK_PALETTE = "1";
       };
-    };
-
-    # Write configuration and theme packages required KDE and Kvantum respectively.
-    # Those tools aren't always used, but they are useful when the app looks for one
-    # of those engines before GTK, despite our attempts to override.
-    xdg.configFile = {
-      # Write ~/.config/kdeglobals based on the kdeglobals file the user has specified.
-      "kdeglobals".source = "${kdeTheme}/share/color-schemes/CatppuccinMochaBlue.colors";
-
-      # Write kvantum configuration, and the theme files required by the Catppuccin theme.
-      "Kvantum/kvantum.kvconfig".source = let
-        themeName = "Catppuccin";
-        themedApps = ["qt5ct" "org.kde.dolphin" "org.kde.kalendar" "org.qbittorrent.qBittorrent" "hyprland-share-picker" "dolphin-emu" "Nextcloud" "nextcloud" "cantata" "org.kde.kid3-qt"];
-      in
-        (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
-          General.theme = themeName;
-          Applications."${themeName}" = concatStringsSep ", " themedApps;
-        };
-
-      "Kvantum/Catppuccin/Catppuccin.kvconfig".source = "${kvantumTheme}/share/Kvantum/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.kvconfig";
-      "Kvantum/Catppuccin/Catppuccin.svg".source = "${kvantumTheme}/share/Kvantum/Catppuccin-Mocha-Blue/Catppuccin-Mocha-Blue.svg";
     };
   };
 }

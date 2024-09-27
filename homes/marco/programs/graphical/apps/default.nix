@@ -1,9 +1,10 @@
 {
   imports = [
-    ./chromium
+    ./chrome
     ./discord
-    ./element
-    ./librewolf
+    ./flameshot
+    # ./element
+    # ./librewolf
     ./obs
     ./office
     # ./schizofox
@@ -11,6 +12,6 @@
     ./thunderbird
     ./vscode
     # ./webcord
-    ./zathura
+    # ./zathura
   ];
 }

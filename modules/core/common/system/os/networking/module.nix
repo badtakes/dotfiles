@@ -8,7 +8,6 @@
     ./network-manager.nix
   ];
 
-  boot.kernelModules = ["af_packet"];
   environment.systemPackages = with pkgs; [
     mtr
     tcpdump

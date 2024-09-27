@@ -1,5 +1,6 @@
-{config, ...}: {
+{...}: {
   imports = [
+    ./history.nix
     ./aliases.nix
     ./init.nix
     ./plugins.nix
@@ -8,27 +9,11 @@
   config = {
     programs.zsh = {
       enable = true;
-
-      dotDir = ".config/zsh";
-
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
-      history = {
-        share = true;
-
-        path = "${config.xdg.dataHome}/zsh/zsh_history";
-
-        extended = true;
-
-        save = 100000;
-        size = 100000;
-        expireDuplicatesFirst = true;
-        ignoreDups = true;
-        ignoreSpace = true;
-        ignorePatterns = ["rm *" "pkill *" "kill *" "killall *"];
-      };
+      dotDir = ".config/zsh";
 
       dirHashes = {
         dl = "$HOME/Downloads";
@@ -40,6 +25,42 @@
         projects = "$HOME/Projects";
         screenshots = "$HOME/Media/Pictures/Screenshots";
         videos = "$HOME/Media/Videos";
+      };
+
+      oh-my-zsh = {
+        enable = true;
+
+        plugins = [
+          "branch"
+          "bun"
+          "colored-man-pages"
+          "copyfile"
+          "copypath"
+          "direnv"
+          "docker-compose"
+          "docker"
+          "dotnet"
+          "extract"
+          "gcloud"
+          "genpass"
+          "gh"
+          "gitignore"
+          # "history"
+          "postgres"
+          "pre-commit"
+          "ssh"
+          "starship"
+          "stripe"
+          "sudo"
+          "systemd"
+          "taskwarrior"
+          "terraform"
+          "tldr"
+          # "tmux"
+          "web-search"
+        ];
+
+        theme = "eastwood";
       };
 
       envExtra = ''

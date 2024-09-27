@@ -20,10 +20,10 @@ function __set_zsh_options() {
     "PUSHD_IGNORE_DUPS"    # don’t push multiple copies of the same directory
     "PUSHD_TO_HOME"        # have pushd with no arguments act like `pushd $HOME`
     "PUSHD_SILENT"         # do not print the directory stack
-	"NOTIFY"			   # report the status of background jobs immediately
-	"PROMPT_SUBST"         # allow substitutions as part of prompt format string
+    "NOTIFY"               # report the status of background jobs immediately
+    "PROMPT_SUBST"         # allow substitutions as part of prompt format string
     "SH_WORD_SPLIT"        # perform field splitting on unquoted parameter expansions
-	"MULTIOS"              # perform implicit tees or cats when multiple redirections are attempted
+	  "MULTIOS"              # perform implicit tees or cats when multiple redirections are attempted
   )
 
   for option in "${options[@]}"; do

@@ -1,6 +1,6 @@
 {
   imports = [
-    ./podman.nix
+    ./docker.nix
     ./qemu.nix
   ];
 }

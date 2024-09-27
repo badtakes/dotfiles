@@ -1,8 +1,3 @@
-{pkgs, ...}: {
-  environment.systemPackages = [pkgs.networkmanagerapplet];
-
-  networking = {
-    networkmanager.enable = true;
-    enableIPv6 = true;
-  };
+{...}: {
+  networking.networkmanager.enable = true;
 }

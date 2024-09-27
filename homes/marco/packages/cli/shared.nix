@@ -1,6 +1,12 @@
-{pkgs, ...}: {
+{
+  inputs',
+  pkgs,
+  ...
+}: {
   config = {
     home.packages = with pkgs; [
+      inputs'.agenix.packages.default
+
       catimg
       duf
       todo

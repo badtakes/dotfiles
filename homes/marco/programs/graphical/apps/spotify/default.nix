@@ -1,25 +1,44 @@
 {
+  config,
   inputs,
   pkgs,
   ...
 }: let
-  spicePkgs = inputs.spicetify.legacyPackages.${pkgs.stdenv.system};
+  spice = inputs.spicetify.legacyPackages.${pkgs.stdenv.system};
 in {
   imports = [inputs.spicetify.homeManagerModules.default];
 
   config = {
     programs.spicetify = {
       enable = true;
+      windowManagerPatch = true;
 
-      enabledExtensions = with spicePkgs.extensions; [
-        hidePodcasts
-        songStats
-        shuffle
-        history
+      theme =
+        spice.themes.sleek
+        // {
+          additionalCss = "* { font-family: ${config.stylix.fonts.sansSerif.name} !important } ";
+        };
+
+      colorScheme = "rosepine";
+
+      enabledExtensions = with spice.extensions; [
+        beautifulLyrics
         betterGenres
+        goToSong
+        history
+        loopyLoop
+        playNext
+        popupLyrics
+        seekSong
+        showQueueDuration
+        volumePercentage
       ];
 
-      theme = spicePkgs.themes.text;
+      enabledCustomApps = with spice.apps; [
+        betterLibrary
+        localFiles
+        newReleases
+      ];
     };
   };
 }
