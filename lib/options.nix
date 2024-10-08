@@ -21,8 +21,6 @@ in rec {
       type = types.bool;
     };
 
-  mkEnableOption = mkBoolOption false;
-
   mkPkgOption = default: description:
     mkOption {
       inherit default description;
@@ -43,6 +41,13 @@ in rec {
     mkOption {
       inherit description;
       type = types.str;
+    };
+
+  mkStrsOption = description:
+    mkOption {
+      inherit description;
+      default = [];
+      type = types.listOf types.str;
     };
 
   mkPathOption = description:

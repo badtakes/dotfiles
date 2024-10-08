@@ -28,7 +28,7 @@
       };
 
       oh-my-zsh = {
-        enable = true;
+        enable = false;
 
         plugins = [
           "branch"
@@ -49,7 +49,7 @@
           "postgres"
           "pre-commit"
           "ssh"
-          "starship"
+          # "starship"
           "stripe"
           "sudo"
           "systemd"

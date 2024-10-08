@@ -4,19 +4,19 @@
   ...
 }: {
   home.packages = with pkgs; [
-    playerctl # CLI interface for playerctld
-    mpc-cli # CLI interface for mpd
-    cava # CLI music visualizer (cavalier is a gui alternative)
+    # playerctl # CLI interface for playerctld
+    # mpc-cli # CLI interface for mpd
+    # cava # CLI music visualizer (cavalier is a gui alternative)
   ];
 
   services = {
-    playerctld.enable = true;
+    # playerctld.enable = true;
     mpris-proxy.enable = true;
-    mpd-mpris.enable = true;
+    # mpd-mpris.enable = true;
 
     # music player daemon service
     mpd = {
-      enable = true;
+      enable = false;
       musicDirectory = "${config.home.homeDirectory}/Media/Music";
       network = {
         startWhenNeeded = true;
@@ -56,7 +56,7 @@
 
     # MPRIS 2 support to mpd
     mpdris2 = {
-      enable = true;
+      enable = false;
       notifications = true;
       multimediaKeys = true;
       mpd = {
@@ -67,7 +67,7 @@
 
     # discord rich presence for mpd
     mpd-discord-rpc = {
-      enable = true;
+      enable = false;
       settings = {
         format = {
           details = "$title";

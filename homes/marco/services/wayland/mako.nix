@@ -4,8 +4,8 @@ _: {
 
     padding = "15";
     defaultTimeout = 7000;
-    borderSize = 3;
-    borderRadius = 10;
+    borderSize = 2;
+    borderRadius = 4;
     height = 300;
   };
 }

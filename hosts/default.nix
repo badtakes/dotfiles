@@ -13,37 +13,20 @@
 
     modulesPath = ../modules;
 
-    coreModules = modulesPath + /core;
-    # extraModules = modulesPath + /extra;
-    options = modulesPath + /options;
-
-    common = coreModules + /common;
-    profiles = coreModules + /profiles;
-
-    # iso = coreModules + /roles/iso;
-    # headless = coreModules + /roles/headless;
-    graphical = coreModules + /roles/graphical;
-    workstation = coreModules + /roles/workstation;
-    # server = coreModules + /roles/server;
-    laptop = coreModules + /roles/laptop;
-
-    # sharedModules = extraModules + /shared;
+    base = modulesPath + /base;
+    system = modulesPath + /system;
 
     homesPath = ../homes;
     homes = [homeManager homesPath];
-    shared = [
-      # sharedModules
-      agenix
-    ];
+    shared = [agenix];
 
     mkModulesFor = hostName: {
-      modules ? [common profiles options],
-      roles ? [],
+      modules ? [base system],
       extra ? [],
     }:
       flatten (concatLists [
         (singleton ./${hostName}/host.nix)
-        (map (path: mkModuleTree' {inherit path;}) (concatLists [modules roles]))
+        (map (path: mkModuleTree' {inherit path;}) (concatLists [modules]))
         extra
       ]);
 
@@ -65,7 +48,6 @@
       ];
     in
       mkNixosSystem' "shrine" "x86_64-linux" {
-        roles = [graphical laptop workstation];
         extra = [homes chaotic shared] ++ hardware;
       };
   };

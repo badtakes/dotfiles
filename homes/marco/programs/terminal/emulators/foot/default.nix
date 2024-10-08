@@ -1,8 +1,11 @@
 {
   config,
+  lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (config.lib.stylix) colors;
+in {
   config = {
     home.packages = with pkgs; [
       libsixel
@@ -56,7 +59,7 @@
           uri-characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.,~:;/?#@!$&%*+=\"'()[]";
         };
 
-        colors = with config.scheme; {
+        colors = with colors; {
           foreground = base05;
           background = base00;
 

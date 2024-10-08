@@ -1,7 +1,7 @@
 {
   imports = [
     ./rofi
-    ./tofi
+    # ./tofi
     # ./anyrun
   ];
 }

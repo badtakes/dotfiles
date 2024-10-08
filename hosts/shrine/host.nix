@@ -28,6 +28,39 @@
       nvidiaBusId = "PCI:1:0:0";
     };
 
+    user = {
+      name = "marco";
+      description = "Marco";
+
+      extraGroups = [
+        "git"
+        "input"
+        "libvirtd"
+        "lp"
+        "mysql"
+        "network"
+        "networkmanager"
+        "nix"
+        "plugdev"
+        "power"
+        "systemd-journal"
+        "tss"
+        "video"
+        "wheel"
+        "wireshark"
+      ];
+    };
+
+    modules = {
+      system = {
+        audio.enable = true;
+        bluetooth.enable = true;
+      };
+
+      window-managers.gnome.enable = true;
+      window-managers.sway.enable = false;
+    };
+
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
     # on your system were taken. It‘s perfectly fine and recommended to leave

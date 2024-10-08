@@ -4,18 +4,20 @@
     package = pkgs.swaylock-effects;
     settings = {
       clock = true;
+      datestr = "%d/%m/%Y";
+      fade-in = "0.1";
       font = "Work Sans";
-      show-failed-attempts = false;
-      indicator = true;
-      indicator-radius = 200;
-      indicator-thickness = 20;
-      line-uses-ring = false;
+      font-size = 24;
       grace = 3;
       grace-no-mouse = true;
       grace-no-touch = true;
-      datestr = "%d/%m/%Y";
-      fade-in = "0.1";
       ignore-empty-password = true;
+      indicator = true;
+      indicator-idle-visible = true;
+      indicator-radius = 200;
+      indicator-thickness = 20;
+      line-uses-ring = false;
+      show-failed-attempts = false;
     };
   };
 }

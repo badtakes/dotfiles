@@ -8,7 +8,7 @@ in {
   config = {
     qt = {
       enable = true;
-      platformTheme = "gnome";
+      platformTheme.name = "adwaita";
       style = {
         name = "adwaita-dark";
         package = pkgs.adwaita-qt;
@@ -27,14 +27,14 @@ in {
             kdePackages.qqc2-desktop-style
 
             # qt5ct/qt6ct for configuring QT apps imperatively
-            libsForQt5.qt5ct
-            kdePackages.qt6ct
+            # libsForQt5.qt5ct
+            # kdePackages.qt6ct
 
             # Some KDE applications such as Dolphin try to fall back to Breeze
             # theme icons. Lets make sure they're also found.
-            libsForQt5.breeze-qt5
-            kdePackages.breeze-icons
-            qt6.qtsvg # needed to load breeze icons
+            # libsForQt5.breeze-qt5
+            # kdePackages.breeze-icons
+            # qt6.qtsvg # needed to load breeze icons
           ]
 
           [

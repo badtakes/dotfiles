@@ -1,15 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: {
-  config = lib.mkIf false {
+{config, ...}: {
+  config = {
     services.dunst = {
+      inherit (config.gtk) iconTheme;
+
       enable = true;
-      iconTheme = {
-        package = config.gtk.iconTheme.package;
-        name = "Papirus-Dark";
-      };
 
       settings = {
         global = {

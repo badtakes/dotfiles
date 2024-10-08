@@ -41,18 +41,13 @@ in {
     ./global.nix
   ];
   config = let
-    theme = "rose-pine";
+    theme = "gruvbox-material-dark-soft";
     scheme = "${pkgs.base16-schemes}/share/themes/${theme}.yaml";
   in {
-    inherit scheme;
-
     stylix = {
       enable = true;
 
-      image = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/refs/heads/master/wallpapers/nix-wallpaper-binary-black_8k.png";
-        sha256 = "sha256-MxEgvzWmdqMeI5GeI6Hzci6yd5iL44NDXyKQOuw+fLY=";
-      };
+      image = ../wallpapers/rooftop.png;
       imageScalingMode = "center";
 
       polarity = "dark";
@@ -60,8 +55,8 @@ in {
       base16Scheme = scheme;
 
       cursor = {
-        package = pkgs.rose-pine-cursor;
-        name = "BreezeX-RosePine-Linux";
+        package = pkgs.whitesur-cursors;
+        name = "WhiteSur-cursors";
       };
 
       opacity = {
@@ -83,8 +78,8 @@ in {
           package = pkgs.noto-fonts;
         };
         sansSerif = {
-          name = "Lexend";
-          package = pkgs.lexend;
+          name = "Work Sans";
+          package = pkgs.work-sans;
         };
       };
 

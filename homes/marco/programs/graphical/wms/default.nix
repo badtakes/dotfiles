@@ -2,6 +2,6 @@
   imports = [
     ./gnome
     # ./hyprland
-    # ./sway
+    ./sway
   ];
 }

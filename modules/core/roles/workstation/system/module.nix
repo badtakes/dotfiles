@@ -1,7 +1,0 @@
-{
-  imports = [
-    ./services
-
-    ./fonts.nix
-  ];
-}

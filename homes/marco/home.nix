@@ -3,14 +3,11 @@
     inputs.stylix.homeManagerModules.stylix
     inputs.base16.homeManagerModule
 
+    ./misc
     ./packages
-
     ./programs
     ./services
-
     ./themes
-
-    ./misc
   ];
 
   config = {

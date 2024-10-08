@@ -37,10 +37,10 @@
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
-    # nyxexprs = {
-    #   url = "github:NotAShelf/nyxexprs";
-    #   inputs.systems.follows = "systems";
-    # };
+    bluetui = {
+      url = "github:pythops/bluetui";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     spicetify = {
       url = "github:Gerg-L/spicetify-nix";

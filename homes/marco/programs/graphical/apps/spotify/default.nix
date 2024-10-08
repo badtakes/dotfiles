@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }: let
@@ -11,32 +12,16 @@ in {
   config = {
     programs.spicetify = {
       enable = true;
-      windowManagerPatch = true;
 
-      theme =
-        spice.themes.sleek
-        // {
-          additionalCss = "* { font-family: ${config.stylix.fonts.sansSerif.name} !important } ";
-        };
-
-      colorScheme = "rosepine";
+      theme = lib.mkDefault (spice.themes.dribbblish // {additionalCss = "* { font-family: ${config.stylix.fonts.sansSerif.name} !important } ";});
+      colorScheme = lib.mkDefault "gruvbox-material-dark";
 
       enabledExtensions = with spice.extensions; [
-        beautifulLyrics
         betterGenres
-        goToSong
-        history
-        loopyLoop
-        playNext
-        popupLyrics
-        seekSong
-        showQueueDuration
         volumePercentage
       ];
 
       enabledCustomApps = with spice.apps; [
-        betterLibrary
-        localFiles
         newReleases
       ];
     };

@@ -27,6 +27,7 @@
       inherit (self.extensions.attrs) flattenAttrs';
       inherit (self.extensions.builders) mkNixosSystem;
       inherit (self.extensions.modules) mkModuleTree mkModuleTree';
+      inherit (self.extensions.options) mkAttrsOption mkBoolOption mkPkgOption mkPkgsOption mkStrOption mkPathOption mkStrsOption;
       inherit (self.extensions.secrets) mkAgenixSecret;
       inherit (self.extensions.systemd) hardenService mkGraphicalService mkHyprlandService;
       inherit (self.extensions.themes) serializeTheme compileSCSS;
