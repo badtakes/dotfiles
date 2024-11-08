@@ -2,7 +2,7 @@
   programs.bat = {
     enable = true;
     config = {
-      pager = "less -FR"; # frfr
+      pager = "less -FR";
     };
   };
 }

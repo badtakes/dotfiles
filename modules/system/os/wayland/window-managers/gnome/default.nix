@@ -7,21 +7,23 @@
   inherit (lib.modules) mkIf mkDefault;
   inherit (lib.options) mkEnableOption;
 
-  cfg = config.modules.window-managers.gnome;
+  cfg = config.modules.windowManager.gnome;
 in {
-  options.modules.window-managers.gnome = {
+  options.modules.windowManager.gnome = {
     enable = mkEnableOption "Gnome";
   };
+
   config = mkIf cfg.enable {
-    programs.dconf.enable = true;
+    chaotic.appmenu-gtk3-module.enable = true;
 
     services.xserver = {
       enable = mkDefault true;
       desktopManager.gnome.enable = true;
 
       displayManager = {
-        startx.enable = true;
-        gdm.enable = mkDefault true;
+        gdm = {
+          enable = mkDefault true;
+        };
       };
     };
 
@@ -36,5 +38,14 @@ in {
       gnome-tour
       yelp
     ];
+
+    systemd.user.services = {
+      xmousepasteblock = {
+        name = "xmousepasteblock";
+        description = "Block mouse paste in X11";
+
+        script = "${pkgs.xmousepasteblock}/bin/xmousepasteblock";
+      };
+    };
   };
 }

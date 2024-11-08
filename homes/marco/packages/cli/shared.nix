@@ -7,23 +7,25 @@
     home.packages = with pkgs; [
       inputs'.agenix.packages.default
 
+      bitwarden-cli
+      btop
       catimg
+      dconf
       duf
-      todo
-      hyperfine
-      fzf
+      fd
+      figlet
       file
-      unzip
+      fzf
+      hyperfine
+      jq
+      nitch
+      p7zip
+      presenterm
       ripgrep
       rsync
-      fd
-      jq
-      figlet
-      dconf
-      nitch
       skim
-      p7zip
-      btop
+      todo
+      unzip
     ];
   };
 }

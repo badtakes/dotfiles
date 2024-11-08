@@ -16,8 +16,8 @@
       enable = true;
 
       iconTheme = {
-        name = "Papirus-Dark";
-        package = pkgs.papirus-icon-theme.override {withElementary = true;};
+        name = "Colloid-Dark";
+        package = pkgs.colloid-icon-theme;
       };
 
       gtk2 = {

@@ -1,10 +1,9 @@
 {pkgs, ...}: {
   services.dbus = {
     enable = true;
-    packages = with pkgs; [dconf gcr udisks2];
+    packages = with pkgs; [dconf gcr udisks2 gnome2.GConf];
 
     # Use the faster dbus-broker instead of the classic dbus-daemon
-    # this setting is experimental, but after testing I've come to realise it broke nothing
-    # implementation = "broker";
+    implementation = "broker";
   };
 }

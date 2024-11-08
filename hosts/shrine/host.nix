@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [];
   config = {
     fileSystems = {
@@ -32,6 +32,50 @@
       name = "marco";
       description = "Marco";
 
+      packages = with pkgs; ([
+          yt-dlp_git
+          nushell
+        ]
+        ++ [
+          # airwindows-lv2
+          # ardour
+          # artyFX
+          # autotalent
+          # bitwig-studio
+          # calf
+          # cardinal
+          # carla
+          # chow-centaur
+          # chow-kick
+          # chow-phaser
+          # chow-tape-model
+          # dexed
+          # diopser
+          # distrho
+          # dragonfly-reverb
+          # drumgizmo
+          # drumkv1
+          # eq10q
+          # helm
+          # lsp-plugins
+          # odin2
+          # renoise
+          # sonic-pi
+          # sorcer
+          # soundfont-fluid
+          # surge
+          # tap-plugins
+          # tunefish
+          # vital
+          # x42-avldrums
+          # x42-gmsynth
+          # x42-plugins
+          # yabridge
+          # yabridgectl
+          # zam-plugins
+          # zynaddsubfx
+        ]);
+
       extraGroups = [
         "git"
         "input"
@@ -52,13 +96,25 @@
     };
 
     modules = {
-      system = {
-        audio.enable = true;
-        bluetooth.enable = true;
+      audio = {
+        enable = true;
+        realtime = true;
       };
 
-      window-managers.gnome.enable = true;
-      window-managers.sway.enable = false;
+      bluetooth.enable = true;
+
+      windowManager.gnome.enable = true;
+      windowManager.sway.enable = false;
+    };
+
+    musnix = {
+      enable = true;
+      alsaSeq.enable = true;
+      rtcqs.enable = true;
+      soundcardPciId = "00:1f.3";
+
+      kernel.realtime = true;
+      rtirq.enable = true;
     };
 
     # This value determines the NixOS release from which the default

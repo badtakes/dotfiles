@@ -70,8 +70,10 @@ in {
           package = pkgs.noto-fonts-color-emoji;
         };
         monospace = {
-          name = "Iosvmata";
-          package = iosvmata;
+          name = "MonaspiceNe Nerd Font";
+          package = pkgs.nerdfonts.override {
+            fonts = ["Monaspace"];
+          };
         };
         serif = {
           name = "Noto Serif";
@@ -84,6 +86,7 @@ in {
       };
 
       targets = {
+        # kde.enable = mkForce false;
         vscode.enable = mkForce false;
       };
     };

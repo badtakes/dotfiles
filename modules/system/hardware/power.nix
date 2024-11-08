@@ -13,7 +13,7 @@
   services.upower.enable = true;
 
   services.tlp.enable = !config.services.xserver.desktopManager.gnome.enable;
-  services.tlp.settings = lib.mkMerge [
+  services.tlp.settings = lib.mkIf (!config.services.xserver.desktopManager.gnome.enable) (lib.mkMerge [
     {
       DISK_IOSCHED = "bfq bfq";
       PLATFORM_PROFILE_ON_AC = "balanced";
@@ -26,5 +26,5 @@
     (lib.mkIf true {
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
     })
-  ];
+  ]);
 }

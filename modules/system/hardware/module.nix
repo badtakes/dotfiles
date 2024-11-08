@@ -5,6 +5,7 @@
     ./graphics.nix
     ./intel.nix
     ./nvidia.nix
+    ./networking.nix
     ./power.nix
     ./touchpad.nix
   ];

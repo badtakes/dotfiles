@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   imports = [
     ./window-managers
 
@@ -7,6 +7,15 @@
 
   config = {
     programs.xwayland.enable = true;
+    programs.wshowkeys.enable = true;
+
+    chaotic.appmenu-gtk3-module.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      libnotify
+      xdg-utils
+      sox
+    ];
 
     environment.variables = {
       _JAVA_AWT_WM_NONEREPARENTING = "1";

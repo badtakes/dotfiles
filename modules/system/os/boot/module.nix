@@ -18,13 +18,14 @@
         };
       };
 
-      kernelPackages = pkgs.linuxPackages_cachyos-lto;
+      kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos-rc;
       kernelParams = [
         # Enable page allocator randomization
         "page_alloc.shuffle=1"
 
         # Reduce TTY output during boot
         "quiet"
+        "splash"
 
         # There is no reason to enable mitigations for most desktops.
         "mitigations=off"
@@ -32,31 +33,29 @@
         # Disable luks password prompt timeout
         "luks.options=timeout=0"
         "rd.luks.options=timeout=0"
+
+        # My laptop has a power button
+        "nowatchdog"
       ];
 
       kernel.sysctl = lib.flattenAttrs' {
         kernel = {
           nmi_watchdog = 0;
           split_lock_mitigate = 0;
-          sched_rt_runtime_us = -1;
         };
         fs.inotify.max_user_watches = 524288;
         net = {
-          core.default_qdisc = "cake";
+          core = {
+            default_qdisc = "cake";
+            netdev_max_backlog = 16384;
+          };
           ipv4 = {
             tcp_congestion_control = "bbr2";
             tcp_fastopen = 3;
-            tcp_ecn = 1;
             tcp_timestamps = 0;
           };
         };
-        vm = {
-          dirty_background_ratio = 5;
-          dirty_ratio = 10;
-          page-cluster = 1;
-          swappiness = 30;
-          vfs_cache_pressure = 50;
-        };
+        vm.vfs_cache_pressure = 50;
       };
 
       initrd.availableKernelModules = [
@@ -105,6 +104,6 @@
 
     # https://github.com/sched-ext/scx/tree/main/scheds/rust/scx_rustland
     chaotic.scx.enable = true;
-    chaotic.scx.scheduler = "scx_rustland";
+    chaotic.scx.scheduler = "scx_bpfland";
   };
 }

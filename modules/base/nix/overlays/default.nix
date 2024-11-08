@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   ...
@@ -8,6 +9,8 @@
   nix = config.nix.package;
 in {
   nixpkgs.overlays = [
+    inputs.nixpkgs-wayland.overlay
+
     (const (prev: {
       nixos-rebuild = prev.nixos-rebuild.override {inherit nix;};
       nix-direnv = prev.nix-direnv.override {inherit nix;};

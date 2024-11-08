@@ -15,6 +15,8 @@
 
       dotDir = ".config/zsh";
 
+      enableVteIntegration = true;
+
       dirHashes = {
         dl = "$HOME/Downloads";
         docs = "$HOME/Documents";
@@ -25,42 +27,6 @@
         projects = "$HOME/Projects";
         screenshots = "$HOME/Media/Pictures/Screenshots";
         videos = "$HOME/Media/Videos";
-      };
-
-      oh-my-zsh = {
-        enable = false;
-
-        plugins = [
-          "branch"
-          "bun"
-          "colored-man-pages"
-          "copyfile"
-          "copypath"
-          "direnv"
-          "docker-compose"
-          "docker"
-          "dotnet"
-          "extract"
-          "gcloud"
-          "genpass"
-          "gh"
-          "gitignore"
-          # "history"
-          "postgres"
-          "pre-commit"
-          "ssh"
-          # "starship"
-          "stripe"
-          "sudo"
-          "systemd"
-          "taskwarrior"
-          "terraform"
-          "tldr"
-          # "tmux"
-          "web-search"
-        ];
-
-        theme = "eastwood";
       };
 
       envExtra = ''

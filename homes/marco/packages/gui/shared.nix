@@ -2,7 +2,6 @@
   home.packages = with pkgs; [
     helvum
     qbittorrent
-    reaper
 
     # Electron applications
     bitwarden-desktop
@@ -11,22 +10,9 @@
 
     code-cursor
 
-    davinci-resolve
     stremio
 
     anytype
-
-    # Obsidian has a pandoc plugin that allows us to render and export
-    # alternative image format, but as the name indicates the plugin
-    # requires `pandoc` binary to be accessiblee. Join pandoc derivation
-    # to Obsidian to make it available to satisfy the dependency.
-    (symlinkJoin {
-      name = "Obsidian";
-      paths = with pkgs; [
-        obsidian
-        pandoc
-      ];
-    })
 
     # plasma packages
     kdePackages.dolphin
@@ -37,18 +23,11 @@
     kdePackages.kimageformats
     kdePackages.kdegraphics-thumbnailers
 
-    # Okular needs ghostscript to import PostScript files as PDFs
-    # so we add ghostscript_headless as a dependency
-    (symlinkJoin {
-      name = "Okular";
-      paths = with pkgs; [
-        kdePackages.okular
-        ghostscript_headless
-      ];
-    })
-
     # gnome packages
-    gnome-tweaks
+    gnome-calculator
     gnome-calendar
+    gnome-feeds
+    gnome-logs
+    gnome-tweaks
   ];
 }

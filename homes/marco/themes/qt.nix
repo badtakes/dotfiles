@@ -8,11 +8,8 @@ in {
   config = {
     qt = {
       enable = true;
-      platformTheme.name = "adwaita";
-      style = {
-        name = "adwaita-dark";
-        package = pkgs.adwaita-qt;
-      };
+      platformTheme.name = "gtk3";
+      style.name = "kvantum";
     };
 
     home = {
@@ -21,20 +18,20 @@ in {
           [
             # Libraries and programs to ensure
             # that QT applications load without issues, e.g. missing libs.
-            libsForQt5.qt5.qtwayland # qt5
-            kdePackages.qtwayland # qt6
+            libsForQt5.qt5.qtwayland
+            kdePackages.qtwayland
             qt6.qtwayland
             kdePackages.qqc2-desktop-style
 
             # qt5ct/qt6ct for configuring QT apps imperatively
-            # libsForQt5.qt5ct
-            # kdePackages.qt6ct
+            libsForQt5.qt5ct
+            kdePackages.qt6ct
 
             # Some KDE applications such as Dolphin try to fall back to Breeze
             # theme icons. Lets make sure they're also found.
-            # libsForQt5.breeze-qt5
+            libsForQt5.breeze-qt5
             # kdePackages.breeze-icons
-            # qt6.qtsvg # needed to load breeze icons
+            qt6.qtsvg # needed to load breeze icons
           ]
 
           [
@@ -64,10 +61,12 @@ in {
         QT_QPA_PLATFORM = "wayland;xcb";
 
         # Disable QT specific window decorations everywhere
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+        # QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
 
         # Do remain backwards compatible with QT5 if possible.
         DISABLE_QT5_COMPAT = "0";
+
+        CALIBRE_USE_DARK_PALETTE = "1";
       };
     };
   };

@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   gitPkg = pkgs.gitFull;
 in {
   imports = [
@@ -39,7 +43,7 @@ in {
         };
 
         # prefer using libsecret for storing and retrieving credentials
-        credential.helper = "${gitPkg}/bin/git-credential-libsecret";
+        credential.helper = lib.mkDefault "${gitPkg}/bin/git-credential-libsecret";
 
         # Use readable prefixs such as (i)ndex, (w)ork tree, (c)ommit and (o)bject
         # instead of a/b/c/d for the patches.
@@ -122,14 +126,8 @@ in {
         url = {
           "https://github.com/".insteadOf = "github:";
           "ssh://git@github.com/".pushInsteadOf = "github:";
-          "https://gitlab.com/".insteadOf = "gitlab:";
-          "ssh://git@gitlab.com/".pushInsteadOf = "gitlab:";
-          "https://aur.archlinux.org/".insteadOf = "aur:";
-          "ssh://aur@aur.archlinux.org/".pushInsteadOf = "aur:";
-          "https://git.sr.ht/".insteadOf = "srht:";
-          "ssh://git@git.sr.ht/".pushInsteadOf = "srht:";
-          "https://codeberg.org/".insteadOf = "codeberg:";
-          "ssh://git@codeberg.org/".pushInsteadOf = "codeberg:";
+
+          "git@github.com:irancho-tecnologia/".insteadOf = "https://github.com/irancho-tecnologia/";
         };
       };
     };

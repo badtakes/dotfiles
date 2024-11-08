@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }: let
@@ -27,8 +26,6 @@ in {
           selection-target = "clipboard";
 
           # dpi-aware = false;
-          # font = "Iosevka Nerd Font:size=14";
-          # font-bold = "Iosevka Nerd Font:size=14";
           vertical-letter-offset = "-0.90";
         };
 

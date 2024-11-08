@@ -1,7 +1,7 @@
 {
   imports = [
     ./dconf.nix
-    ./rnnoise.nix
+    # ./rnnoise.nix
     ./xdg.nix
   ];
 }

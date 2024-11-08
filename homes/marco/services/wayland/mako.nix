@@ -6,6 +6,6 @@ _: {
     defaultTimeout = 7000;
     borderSize = 2;
     borderRadius = 4;
-    height = 300;
+    # height = 300;
   };
 }

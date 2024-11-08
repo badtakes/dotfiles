@@ -1,6 +1,7 @@
 {
   imports = [
-    ./mpd.nix
-    ./noisetorch.nix
+    ./easyeffects.nix
+    # ./mpd.nix
+    # ./noisetorch.nix
   ];
 }

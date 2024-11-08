@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   config = {
     environment.systemPackages = with pkgs; [
       mtr
@@ -12,7 +8,7 @@
 
     networking = {
       networkmanager.enable = true;
-      useDHCP = lib.mkDefault true;
+      networkmanager.dns = "none";
 
       nameservers = [
         # Cloudflare
@@ -27,11 +23,6 @@
         "2620:fe::fe"
         "2620:fe::9"
       ];
-
-      stevenblack = {
-        enable = true;
-        block = ["fakenews" "gambling"];
-      };
     };
   };
 }

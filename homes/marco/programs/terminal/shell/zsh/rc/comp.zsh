@@ -27,13 +27,16 @@ zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 # Don't complete unavailable commands.
 zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
 
+# No correction
+zstyle ':completion:*' completer _oldlist _expand _complete _files _ignored
+
 # Don't insert tabs when there is no completion (e.g. beginning of line)
 zstyle ':completion:*' insert-tab false
 
 # allow one error for every three characters typed in approximate completer
 zstyle ':completion:*:approximate:' max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
 
-# Start menu completion only if it could find no unambiguous initial string
+# start menu completion only if it could find no unambiguous initial string
 zstyle ':completion:*:correct:*' insert-unambiguous true
 zstyle ':completion:*:corrections' format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
 zstyle ':completion:*:correct:*' original true
@@ -45,7 +48,7 @@ zstyle ':completion:*' original true
 # Treat multiple slashes as a single / like UNIX does (instead of as /*/)
 zstyle ':completion:*' squeeze-slashes true
 
-# Insert all expansions for expand completer
+# insert all expansions for expand completer
 zstyle ':completion:*:expand:*' tag-order all-expansions
 
 # match uppercase from lowercase
@@ -58,10 +61,10 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:options' auto-description '%d'
 
-# Describe options in full
+# describe options in full
 zstyle ':completion:*:options' description 'yes'
 
-# On processes completion complete all user processes
+# on processes completion complete all user processes
 zstyle ':completion:*:processes' command 'ps -a -u $USER'
 
 # Ignore completion functions for commands you don't have:
@@ -70,12 +73,12 @@ zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
 # Provide more processes in completion of programs like killall:
 zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
 
-# Complete manual by their section
+# complete manual by their section
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.*' insert-sections true
 zstyle ':completion:*:man:*' menu yes select
 
-# Provide .. as a completion
+# provide .. as a completion
 zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' special-dirs ..
 

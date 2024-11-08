@@ -49,7 +49,16 @@ in {
 
       # programming fonts
       sarasa-gothic
-      (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono" "NerdFontsSymbolsOnly"];})
+      (nerdfonts.override {
+        fonts = [
+          "GeistMono"
+          "Iosevka"
+          "JetBrainsMono"
+          "Monaspace"
+          "NerdFontsSymbolsOnly"
+          "ZedMono"
+        ];
+      })
 
       # desktop fonts
       corefonts # MS fonts
@@ -72,6 +81,7 @@ in {
       openmoji-color
       openmoji-black
 
+      monaspace
       google-fonts
     ];
   };

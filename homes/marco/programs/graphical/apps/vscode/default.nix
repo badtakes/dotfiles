@@ -5,7 +5,7 @@
 }: {
   config = {
     programs.vscode = {
-      package = pkgs.vscode-fhs;
+      package = pkgs.vscode.fhsWithPackages (ps: with ps; [rustup zlib openssl.dev pkg-config]);
 
       enable = true;
       enableUpdateCheck = true;

@@ -14,6 +14,12 @@
           type = "hard";
           value = "1048576";
         }
+        # {
+        #   domain = "@users";
+        #   item = "rtprio";
+        #   type = "-";
+        #   value = 1;
+        # }
       ];
 
       services = let

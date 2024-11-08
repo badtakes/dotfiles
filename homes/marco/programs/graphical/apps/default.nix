@@ -4,7 +4,7 @@
     ./discord
     ./flameshot
     # ./element
-    # ./librewolf
+    ./librewolf
     ./obs
     ./office
     # ./schizofox

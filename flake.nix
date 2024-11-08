@@ -9,6 +9,11 @@
 
     nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
+    lix = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     flake-parts = {
@@ -26,6 +31,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
+
+    musnix = {
+      url = "github:musnix/musnix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs-small";
@@ -35,11 +48,6 @@
     nix-index-db = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs-small";
-    };
-
-    bluetui = {
-      url = "github:pythops/bluetui";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     spicetify = {
@@ -100,7 +108,7 @@
                 allowUnsupportedSystem = true;
               };
 
-              # overlays = [inputs.self.overlays.default];
+              overlays = [inputs.self.overlays.default];
             };
 
             _module.args = {
@@ -111,6 +119,7 @@
 
         ./lib
         ./hosts
+        ./packages
       ];
     };
 }

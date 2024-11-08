@@ -8,9 +8,9 @@
       settings = {
         global = {
           follow = "mouse";
-          width = 320;
-          height = 280;
-          origin = "top-center";
+          # width = 320;
+          # height = 280;
+          origin = "top-right";
           alignment = "left";
           vertical_alignment = "center";
           ellipsize = "middle";
@@ -28,7 +28,7 @@
           progress_bar_max_width = 300;
           separator_height = 2;
           frame_width = 2;
-          separator_color = "frame";
+          # separator_color = "frame";
           corner_radius = 8;
           transparency = 0;
           gap_size = 8;
@@ -38,7 +38,7 @@
           history_length = 20;
           show_age_threshold = 60;
           markup = "full";
-          font = "Iosevka 16";
+          # font = "Iosevka 16";
           word_wrap = "yes";
           sort = "yes";
           shrink = "no";
