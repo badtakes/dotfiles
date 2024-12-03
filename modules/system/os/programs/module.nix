@@ -13,11 +13,12 @@
 
     environment.systemPackages = with pkgs; [
       curl
-      wget
-      rsync
-      lshw
-      pciutils
       dnsutils
+      lshw
+      openssl
+      pciutils
+      rsync
+      wget
     ];
   };
 }

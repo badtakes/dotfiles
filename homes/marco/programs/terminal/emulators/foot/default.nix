@@ -19,7 +19,7 @@ in {
           title = "foot";
           locked-title = "no";
           term = "xterm-256color";
-          pad = "16x16 center";
+          pad = "4x4 center";
           shell = "zsh";
 
           # desktop-notifications.command = "notify-send -a \${app-id} -i \${app-id} \${title} \${body}";

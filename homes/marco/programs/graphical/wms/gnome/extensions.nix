@@ -14,6 +14,7 @@
     "no-title-bar"
     "system-monitor"
     "user-themes"
+    "unite"
   ];
 
   cfg = osConfig.services.xserver.desktopManager.gnome;

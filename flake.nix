@@ -4,15 +4,11 @@
   inputs = {
     systems.url = "github:nix-systems/default-linux";
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-
-    lix = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-24.11-small";
+    nixpkgs-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -26,6 +22,7 @@
       inputs.systems.follows = "systems";
     };
 
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -7,6 +7,9 @@
     home.packages = with pkgs; [
       inputs'.agenix.packages.default
 
+      croc
+      wush
+
       bitwarden-cli
       btop
       catimg

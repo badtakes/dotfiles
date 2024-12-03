@@ -8,8 +8,6 @@
     inherit (lib) mkModuleTree' mkNixosSystem;
     inherit (lib.lists) singleton concatLists flatten;
 
-    lix = inputs.lix.nixosModules.default;
-
     agenix = inputs.agenix.nixosModules.default;
     musnix = inputs.musnix.nixosModules.musnix;
     homeManager = inputs.home-manager.nixosModules.home-manager;
@@ -21,7 +19,7 @@
 
     homesPath = ../homes;
     homes = [homeManager homesPath];
-    shared = [lix agenix musnix];
+    shared = [agenix musnix];
 
     mkModulesFor = hostName: {
       modules ? [base system],
